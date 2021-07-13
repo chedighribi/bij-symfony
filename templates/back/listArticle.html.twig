@@ -1,0 +1,47 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}
+    %{% for message in app.flashes('success') %}
+        <div class="row justify-content-center mt-4">
+            <div class="alert alert-success col-md-6 text-center">{{ message }}</div>
+        </div>
+{% endfor %}
+    %{% for message in app.flashes('error') %}
+        <div class="row justify-content-center mt-4">
+         <div class="alert alert-danger col-md-6 text-center">{{ message }}</div>
+        </div>
+{% endfor %}
+
+{% endblock %}
+
+{% block body %}
+    <table class="table tab-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Nom</th>
+            <th>Prix</th>
+            <th>Categorie</th>
+            <th>Photo</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for article in articles %}
+            <tr>
+                <td>{{ article.id }}</td>
+                <td>{{ article.nom }}</td>
+                <td>{{ article.prix }}</td>
+                <td>{{ article.categorie.nom }}</td>
+                <td><img height="40" width="40" src="{{ asset('upload/') }}{{ article.photo }}" alt=""></td>
+                <td><a class="btn btn-primary" href="{{ path('modifArticle' , {'id':article.id}) }}">Modifier</a></td>
+                <td><a class="btn btn-danger" href="{{ path('deleteArticle' , {'id':article.id}) }}">delete</a></td>
+                <td><a class="btn btn-primary" href=""></a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+

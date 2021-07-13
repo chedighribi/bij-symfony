@@ -1,0 +1,40 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}
+    %{% for message in app.flashes('success') %}
+    <div class="row justify-content-center mt-4">
+        <div class="alert alert-success col-md-6 text-center">{{ message }}</div>
+    </div>
+{% endfor %}
+    %{% for message in app.flashes('error') %}
+    <div class="row justify-content-center mt-4">
+        <div class="alert alert-danger col-md-6 text-center">{{ message }}</div>
+    </div>
+{% endfor %}
+
+{% endblock %}
+
+{% block body %}
+    <table class="table tab-hover">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Nom</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for categorie in categories %}
+            <tr>
+                <td>{{ categorie.id }}</td>
+                <td>{{ categorie.nom }}</td>
+                <td><a class="btn btn-primary" href="{{ path('modifCategorie' , {'id':categorie.id}) }}">Modifier</a></td>
+                <td><a class="btn btn-danger" href="{{ path('deleteCategorie' , {'id':categorie.id}) }}">delete</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+

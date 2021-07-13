@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }}Acceuil
+{% endblock %}
+
+
+{% block body %}
+    {% for message in app.flashes('success') %}
+        <div class="row justify-content-center mt-4">
+            <div class="alert alert-success col-md-6 text-center">{{ message }}</div>
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="row justify-content-center mt-4">
+            <div class="alert alert-danger col-md-6 text-center">{{ message }}</div>
+        </div>
+    {% endfor %}
+    <div class="row justify-content-between">
+        {% for article in articles  %}
+            <div class="col-md-3">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ article.nom }}</h5>
+
+                    </div>
+                    <img src="{{ asset('upload/') }}{{ article.photo }}" alt="">
+                    <hr>
+                    <div class="card-body ">
+                        <strong>{{ article.prix }}€</strong>
+                    </div>
+                    <hr>
+
+                    <div class="card-body">
+                        <a href="{{  path('addPanier', {id:article.id,'param':'home'}) }}" class="card-link"><i class="fas fa-cart-arrow-down fa-2x"></i><strong>Ajouter au panier</strong></a>
+                    </div>
+
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+{% endblock %}
+
+
