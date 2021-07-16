@@ -20,45 +20,45 @@ class RegistrationType extends AbstractType
                 "required"=>false,
                 "label"=>false,
                 "attr"=>[
-                    "placeholder"=>"Saisir le champs"
+                    "placeholder"=>"Veuillez saisir le champs"
                 ]
             ])
             ->add('email', EmailType::class, [
                 "required"=>false,
                 "label"=>false,
                 "attr"=>[
-                    "placeholder"=>"Saisir le champs"
+                    "placeholder"=>"Veuillez saisir le champs"
                 ]
             ])
             ->add('password', PasswordType::class, [
                 "required"=>false,
                 "label"=>false,
                 "attr"=>[
-                    "placeholder"=>"Saisir le champs"
+                    "placeholder"=>"Veuillez saisir le champs"
                 ]
             ])
             ->add('nom', TextType::class, [
                 "required"=>false,
                 "label"=>false,
                 "attr"=>[
-                    "placeholder"=>"Saisir le champs"
+                    "placeholder"=>"Veuillez saisir le champs"
                 ]
             ])
             ->add('prenom', TextType::class, [
                 "required"=>false,
                 "label"=>false,
                 "attr"=>[
-                    "placeholder"=>"Saisir le champs"
+                    "placeholder"=>"Veuillez saisir le champs"
                 ]
             ])
             ->add('confirmPassword', PasswordType::class, [
                 "required"=>false,
                 "label"=>false,
                 "attr"=>[
-                    "placeholder"=>"Saisir le champs"
+                    "placeholder"=>"Veuillez saisir le champs"
                 ]
             ])
-            ->add('valider',SubmitType::class)
+            ->add('Valider', SubmitType::class)
         ;
     }
 

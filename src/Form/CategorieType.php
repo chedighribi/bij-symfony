@@ -18,11 +18,10 @@ class CategorieType extends AbstractType
                 "required"=>false,
                 "label"=>false,
                 "attr"=>[
-                    "placeholder"=>"nom de la categorie"
+                    "placeholder"=>"Veuillez saisir le nom de la catégorie"
                 ]
             ])
-            ->add('valider', SubmitType::class)
-
+            ->add('Valider', SubmitType::class)
         ;
     }
 

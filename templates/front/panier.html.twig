@@ -54,7 +54,7 @@
                             <a href="{{ path('removePanier', {'id': item.article.id}) }}"><button class="btn btn-primary text-white">-</button></a></td>
                         <td>{{ item.quantite }}</td>
                         <td>
-                            <a href="{{ path('addPanier', {'id': item.article.id ,'param':'no'}) }}"><button class="btn btn-primary text-white">+</button></a></td>
+                            <a href="{{ path('addPanier', {'id': item.article.id, param:'panier'}) }}"><button class="btn btn-primary text-white">+</button></a></td>
 
                         <td>
                             <a href="{{ path('deletePanier', {'id': item.article.id}) }}"><button class="btn btn-outline-danger btn-rounded" >Annuler</button></a></td>

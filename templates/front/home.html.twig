@@ -1,45 +1,95 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ parent() }}Acceuil
+ {{ parent() }}Acceuil
 {% endblock %}
 
 
 {% block body %}
-    {% for message in app.flashes('success') %}
-        <div class="row justify-content-center mt-4">
-            <div class="alert alert-success col-md-6 text-center">{{ message }}</div>
-        </div>
-    {% endfor %}
-    {% for message in app.flashes('error') %}
-        <div class="row justify-content-center mt-4">
-            <div class="alert alert-danger col-md-6 text-center">{{ message }}</div>
-        </div>
-    {% endfor %}
-    <div class="row justify-content-between">
-        {% for article in articles  %}
-            <div class="col-md-3">
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ article.nom }}</h5>
+ {% for message in app.flashes('success') %}
+  <div class="row justify-content-center mt-4">
+   <div class="alert alert-success col-md-6 text-center">{{ message }}</div>
+  </div>
+ {% endfor %}
+ {% for message in app.flashes('error') %}
+  <div class="row justify-content-center mt-4">
+   <div class="alert alert-danger col-md-6 text-center">{{ message }}</div>
+  </div>
+ {% endfor %}
+<div class="row justify-content-center">
+ <div class="col-md-8 alert alert-primary ">
+  <form action="{{ path('home') }}" method="post">
+   <div class="row">
+    <div class="col-md-6 mt-5">
+   <div class="form-group">
+    <label class="form-label mt-4" for="categorie">Filtrer par catégorie</label>
+    <select class="form-select" name="categorie" id="categorie">
+     <option value="all">Catégorie</option>
+     {% for categorie in categories %}
+      <option value="{{ categorie.id }}">{{ categorie.nom }}</option>
+     {% endfor %}
 
-                    </div>
-                    <img src="{{ asset('upload/') }}{{ article.photo }}" alt="">
-                    <hr>
-                    <div class="card-body ">
-                        <strong>{{ article.prix }}€</strong>
-                    </div>
-                    <hr>
-
-                    <div class="card-body">
-                        <a href="{{  path('addPanier', {id:article.id,'param':'home'}) }}" class="card-link"><i class="fas fa-cart-arrow-down fa-2x"></i><strong>Ajouter au panier</strong></a>
-                    </div>
-
-                </div>
-            </div>
-
-        {% endfor %}
+    </select>
+   </div>
     </div>
+    <div class="col-md-6 mb-2 pb-3">
+   <div class="pt-4">
+    <label for="">Votre budget</label>
+    <div class="range-wrap mt-4 ms-3 ">
+     <div class="range-value" id="rangeV"></div>
+     <input id="range" name="prixmax" type="range" min="50" max="1500" value="1500" step="50">
+    </div>
+   </div>
+   </div>
+   </div>
+
+   <button type="submit" class="btn btn-primary">Filtrer</button>
+  </form>
+
+ </div>
+</div>
+ <div class="row justify-content-between">
+ {% for article in articles  %}
+<div class="col-md-3">
+ <div class="card mb-3">
+  <div class="card-body">
+   <h5 class="card-title">{{ article.nom }}</h5>
+
+  </div>
+  <img src="{{ article.photo }}" alt="">
+  <hr>
+  <div class="card-body ">
+   <strong>{{ article.prix }}€</strong>
+  </div>
+  <hr>
+
+  <div class="card-body ">
+   <a href="{{ path('addPanier', {id: article.id, param:'home'}) }}" class="card-link"><i class="fas fa-cart-arrow-down fa-2x"></i><strong>Ajouter au panier</strong></a>
+
+  </div>
+
+ </div>
+</div>
+
+ {% endfor %}
+ </div>
+
+ <script>
+  const
+          range = document.getElementById('range'),
+          rangeV = document.getElementById('rangeV'),
+          setValue = () => {
+           const
+                   newValue = Number((range.value - range.min) * 100 / (range.max - range.min)),
+                   newPosition = 10 - (newValue * 0.2);
+           rangeV.innerHTML = `<span>${range.value}</span>`;
+           rangeV.style.left = `calc(${newValue}% + (${newPosition}px))`;
+
+          };
+  document.addEventListener("DOMContentLoaded", setValue);
+  range.addEventListener('input', setValue);
+
+ </script>
 {% endblock %}
 
 

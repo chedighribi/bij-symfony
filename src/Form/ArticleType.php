@@ -18,31 +18,29 @@ class ArticleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
+
         if ($options['ajout']==true):
         $builder
-            ->add('nom', TextType::class,[
+            ->add('nom', TextType::class, [
                 'required'=>false,
                 'label'=>false,
                 'attr'=>[
-                    'placeholder'=>'veuillez saisir le nom de l\'article'
+                    'placeholder'=>'Veuillez saisir le nom de l\'article'
                 ]
-
             ])
-            ->add('prix', NumberType::class, [
+            ->add('prix', NumberType::class,[
                 'required'=>false,
                 'label'=>false,
                 'attr'=>[
-                    'placeholder'=>'veuillez saisir le prix de l\'article'
+                    'placeholder'=>'Veuillez saisir le prix de l\'article'
                 ]
-
-            ])
+            ] )
             ->add('photo', FileType::class,[
                 'required'=>false,
-                'label'=>false
+                'label'=>false,
 
             ])
-            ->add('validate', SubmitType::class)
-
+            ->add('Valider', SubmitType::class)
             ->add('categorie', EntityType::class,[
                 "label"=>false,
                 "class"=>Categorie::class,
@@ -50,32 +48,39 @@ class ArticleType extends AbstractType
             ])
         ;
         else:
+
             $builder
-                ->add('nom', TextType::class,[
+                ->add('nom', TextType::class, [
                     'required'=>false,
                     'label'=>false,
                     'attr'=>[
-                        'placeholder'=>'veuillez saisir le nom de l\'article'
+                        'placeholder'=>'Veuillez saisir le nom de l\'article'
                     ]
-
                 ])
-                ->add('prix', NumberType::class, [
+                ->add('prix', NumberType::class,[
                     'required'=>false,
                     'label'=>false,
                     'attr'=>[
-                        'placeholder'=>'veuillez saisir le prix de l\'article'
+                        'placeholder'=>'Veuillez saisir le prix de l\'article'
                     ]
-
-                ])
+                ] )
                 ->add('photoModif', FileType::class,[
                     'required'=>false,
-                    'label'=>false
+                    'label'=>false,
 
                 ])
-                ->add('validate', SubmitType::class)
+                ->add('Valider', SubmitType::class)
+                ->add('categorie', EntityType::class,[
+                    "label"=>false,
+                    "class"=>Categorie::class,
+                    "choice_label"=>"nom"
+                ])
             ;
 
             endif;
+
+
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

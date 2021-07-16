@@ -8,48 +8,61 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class SecurityController extends AbstractController
 {
+
     /**
-     *@Route("/register", name="register")
+     * @Route("/register", name="register")
      */
     public function registration(EntityManagerInterface $manager, Request $request, UserPasswordEncoderInterface $encoder)
     {
-        $user= new User();
+
+        //UserPasswordEncoderInterface  pour pouvoir fonctionner attends l'objet User, que celui ci herite de la class UserInterface, qui attend des méthode
+        //bien spécifiques à implementer afin de s'assurer du bon fonctionnement de l'authentification
+
+        $user=new User();
 
         $form=$this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()):
 
+
             $hash=$user->getPassword();
-            $hashpassword=$encoder->encodePassword($user, $hash);
-            $user->setPassword($hashpassword);
-            $manager->persist($user);
-            $manager->flush();
+        $hashpassword=$encoder->encodePassword($user, $hash);
 
-            $this->addFlash('success','felicitation compte creer');
+        $user->setPassword($hashpassword);
+        $manager->persist($user);
+        $manager->flush();
 
-            return $this->redirectToRoute('home');
-
+        $this->addFlash('success', 'Félicitation votre compte a bien été créé, connectez vous à présent');
+        return $this->redirectToRoute('home');
             endif;
 
+
+
         return $this->render('security/registration.html.twig',[
-            'form'=>$form->createView()
+           'form'=>$form->createView()
+
         ]);
 
     }
 
+
     /**
-     *@Route ("/login", name="login")
+     *@Route("/login", name="login")
      */
     public function login()
     {
-        return $this->render('security/login.html.twig');
 
+
+        return $this->render('security/login.html.twig');
     }
 
     /**
@@ -59,5 +72,8 @@ class SecurityController extends AbstractController
     {
 
     }
+
+
+
 
 }

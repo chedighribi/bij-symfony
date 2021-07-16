@@ -1,42 +1,50 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-    {{ parent() }}Panier
+
 {% endblock %}
- {% block titre %}
-     Panier
- {% endblock %}
 {% block body %}
 
-    {% for commande in commandes  %}
+    {% for message in app.flashes('success') %}
+        <div class="row justify-content-center mt-4">
+            <div class="alert alert-success col-md-6 text-center">{{ message }}</div>
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="row justify-content-center mt-4">
+            <div class="alert alert-danger col-md-6 text-center">{{ message }}</div>
+        </div>
+    {% endfor %}
+    {% for commande in commandes %}
 
 
-            <table class="table">
-                <thead class="thead-dark text-center">
-                <tr>
-                    <th >Nom</th>
-                    <th >Photo</th>
-                    <th >Prix unitaire</th>
-                    <th >Prix Total</th>
-                </tr>
-                </thead>
-                <tbody class="text-center">
+    <table class="table">
+        <thead class="thead-dark text-center">
+        <tr>
+            <th >Nom</th>
+            <th >Photo</th>
+            <th >Prix unitaire</th>
+            <th >Prix Total</th>
+        </tr>
+        </thead>
+        <tbody class="text-center">
+        {% for item in commande.achats %}
+            <tr>
+                <td>{{  item.article.nom }}</td>
+                <td><img height="40" width="40" src="{{ asset('upload/') }}{{ item.article.photo }}" alt="{{ item.article.nom }}"></td>
 
+                <td>{{ item.article.prix  }} €</td>
+                <td>{{ item.article.prix * item.quantite }} €</td>
 
+        {% endfor %}
+        </tbody>
 
-                {% for item in commande.achats %}
-                    <tr>
-                        <td>{{  item.article.nom }}</td>
-                        <td><img height="40" width="40" src="{{ asset('upload/') }}{{ item.article.photo }}" alt="{{ item.article.nom }}"></td>
+    </table>
 
-                        <td>{{ item.article.prix  }} €</td>
-                        <td>{{ item.article.prix * item.quantite }} €</td>
-                {% endfor %}
-
-                </tbody>
-
-            </table>
-
-            <div class="col-md-8 mt-2"><h4>Total de la commande : {{ commande.montantTotal }} €</h4></div>
-
+    <div class="col-md-8 mt-2"><h4>Total de la commande : {{ commande.montantTotal }} €</h4></div>
 {% endfor %}
+
+
 {% endblock %}
+
+
+

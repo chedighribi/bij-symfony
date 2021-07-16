@@ -9,11 +9,12 @@
     {% block stylesheets %}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lux/bootstrap.min.css" integrity="sha384-9+PGKSqjRdkeAU7Eu4nkJU8RFaH8ace8HGXnkiKMP9I9Te0GJ4/km3L1Z8tXigpG" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
         {#{{ encore_entry_link_tags('app') }}#}
     {% endblock %}
 
     {% block javascripts %}
-        {#{{ encore_entry_script_tags('app') }}#}
+        <script src="{{ asset('js/script.js') }}"></script>
     {% endblock %}
 </head>
 <body style="overflow-x: hidden;">
@@ -31,10 +32,13 @@
                     </a>
                 </li>
 
-                <form class="d-flex" style="margin-right: 50px">
-                    <input style="margin-right: 5px" class="form-control me-sm-2" type="text" placeholder="Recherche">
+                <form class="d-flex" style="margin-right: 50px" method="get" action="{{ path('searchRender') }}">
+                    <input style="margin-right: 5px" class="form-control me-sm-2" name="search" type="text" placeholder="Recherche">
                     <button class="btn btn-secondary my-2 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                 </form>
+                <li class="nav-item">
+                    <a  class="nav-link" href="{{ path('mailForm') }}">Nous contacter</a>
+                </li>
                 {% if not app.user %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('register') }}">Inscription</a>
@@ -54,15 +58,16 @@
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-2x"></i> {{ app.user.username }}</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profil</a>
-                        <a class="dropdown-item" href="{{ path('listeCommande') }}"><i class="fas fa-shopping-bag"></i> Commandes</a>
+                        <a class="dropdown-item" href="{{ path('listeCommande') }}"><i class="fas fa-shopping-bag"></i>Commandes</a>
                         {% if is_granted('ROLE_ADMIN') %}
                             <a class="dropdown-item" href="{{ path('addArticle') }}"><i class="fas fa-cogs"></i> Panel Admin</a>
                         {% endif %}
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="{{ path('logout')}}"><i class="fas fa-sign-out-alt"></i> Déconexion</a>
+                        <a class="dropdown-item" href="{{ path('logout')}}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
                     </div>
                 </li>
                 {% endif %}
+
 
             </div>
         </div>

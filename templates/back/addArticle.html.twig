@@ -1,32 +1,46 @@
 {% extends 'baseBack.html.twig' %}
-
 {% block title %}
-
+    {{ parent() }}Ajout article
 {% endblock %}
 
+{% block TitrePage %}Ajout article{% endblock %}
 {% block body %}
-     {{form_start(form)}}
-    <label for="">nom de l'article</label>
-        {{ form_row(form.nom) }}
-    <label for="">prix de l'article</label>
+{#{{ form(form) }}#}{# génère l'intégralité du formulaire#}
+    {% for message in app.flashes('success') %}
+        <div class="row justify-content-center mt-4">
+            <div class="alert alert-success col-md-6 text-center">{{ message }}</div>
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('error') %}
+        <div class="row justify-content-center mt-4">
+            <div class="alert alert-danger col-md-6 text-center">{{ message }}</div>
+        </div>
+    {% endfor %}
 
+
+    {{ form_start(form) }}
+
+ <label for="">Nom de l'article</label>
+    {{ form_row(form.nom) }}
+ <label for="">Prix de l'article</label>
     {{ form_row(form.prix) }}
 
     <label for="">Catégorie de l'article</label>
     {{ form_row(form.categorie) }}
 
-    <label for="">photo de l'article</label>
+ <label for="">Photo de l'article</label>
 
-    {{ form_row(form.photo, { "attr":{"onChange": "loadFile(event)"} }) }}
+ {{ form_row(form.photo, { 'attr':{"onChange": "loadFile(event)"} }  ) }}
     <div class="col-md-12 text-center">
 
         <img id="image" style='width:300px'>
 
     </div>
 
-    {{ form_row(form.validate) }}
 
+    {{ form_row(form.Valider) }}
     {{ form_end(form) }}
+
 
     <script>
 
@@ -37,6 +51,8 @@
         };
 
     </script>
+
 {% endblock %}
+
 
 
